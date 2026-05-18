@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const LINKTREE_URL = "https://linktr.ee/fleurbouquetbandung";
 
 // 🔧 Formspree endpoint — menggunakan email langsung (pastikan sudah diverifikasi di formspree.io)
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/alyniche@gmail.com";
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mnjrqdan";
 
 export default function Footer() {
   const [isAboutOpen, setIsAboutOpen] = useState(false);
@@ -129,15 +129,27 @@ export default function Footer() {
               {submitState === "success" ? (
                 <motion.div
                   key="success"
-                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  initial={{ opacity: 0, y: 15, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="flex items-start gap-3 bg-pink-50 border border-pink-200 rounded-2xl p-4"
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  className="flex flex-col items-center justify-center bg-gradient-to-br from-pink-50 to-white border border-pink-200 rounded-2xl p-6 shadow-sm text-center"
                 >
-                  <CheckCircle className="w-5 h-5 text-pink-500 mt-0.5 shrink-0" />
-                  <p className="text-pink-700 font-sans text-sm font-medium leading-relaxed">
-                    Email terdaftar! Tunggu kejutan romantis di inbox kamu. 🌸
-                  </p>
+                  <motion.h3 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2, duration: 0.5 }}
+                    className="font-dancing text-3xl text-pink-600 mb-2"
+                  >
+                    Terima kasih sudah bergabung! 🌸
+                  </motion.h3>
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.4, duration: 0.8 }}
+                    className="text-gray-600 font-sans text-sm leading-relaxed"
+                  >
+                    Cek inbox kamu secara berkala untuk kejutan manis dari Fleur Pipeline.
+                  </motion.p>
                 </motion.div>
               ) : (
                 <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -165,7 +177,7 @@ export default function Footer() {
                     <button
                       type="submit"
                       disabled={submitState === "loading"}
-                      className="px-5 py-3 bg-pink-500 text-white rounded-r-xl hover:bg-pink-600 transition-colors shadow-md border border-pink-500 flex items-center justify-center disabled:opacity-60 shrink-0"
+                      className="px-5 py-3 bg-pink-500 text-white rounded-r-xl hover:bg-pink-600 transition-all duration-300 ease-in-out hover:scale-105 shadow-md border border-pink-500 flex items-center justify-center disabled:opacity-60 shrink-0"
                     >
                       {submitState === "loading" ? (
                         <motion.div

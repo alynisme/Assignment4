@@ -98,8 +98,8 @@ export default function Page() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img 
-            src="https://images.unsplash.com/photo-1563241527-3004b7be0ffd?auto=format&fit=crop&q=80&w=400" 
-            alt="Bouquet 1" 
+            src="/bluerosesbouquet.jpg" 
+            alt="Blue Roses Bouquet" 
             className="w-full h-full object-cover"
           />
         </motion.div>
@@ -111,8 +111,8 @@ export default function Page() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img 
-            src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&q=80&w=400" 
-            alt="Bouquet 2" 
+            src="/bunnytigerlilybouquet.jpg" 
+            alt="Bunny Tiger Lily Bouquet" 
             className="w-full h-full object-cover"
           />
         </motion.div>
@@ -235,6 +235,7 @@ export default function Page() {
           ].map((flower, idx) => (
             <motion.div 
               key={idx}
+              data-cursor="flower"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

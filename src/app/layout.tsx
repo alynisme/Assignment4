@@ -31,7 +31,7 @@ export default function RootLayout({
       lang="id"
       className={`${inter.variable} ${dancingScript.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans text-gray-800 bg-white cursor-none">
+      <body className="min-h-full flex flex-col font-sans text-gray-800 bg-white md:cursor-none">
         <CustomCursor />
         <GlobalDecorations />
         <Toaster 

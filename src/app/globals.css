@@ -26,10 +26,7 @@ body {
   color: var(--foreground);
 }
 
-/* Hide default cursor globally to ensure the custom cursor works properly */
-* {
-  cursor: none !important;
-}
+
 
 h1, h2, h3, h4, h5, h6 {
   font-style: italic;

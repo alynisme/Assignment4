@@ -19,12 +19,12 @@ export default function CustomCursor() {
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      // Check if we are hovering over a clickable element
       if (
         target.tagName.toLowerCase() === "a" ||
         target.tagName.toLowerCase() === "button" ||
         target.closest("a") ||
-        target.closest("button")
+        target.closest("button") ||
+        target.closest("[data-cursor]")
       ) {
         setIsHovering(true);
       } else {
@@ -51,13 +51,12 @@ export default function CustomCursor() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 pointer-events-none z-[9999] flex items-center justify-center"
+      className="fixed top-0 left-0 pointer-events-none z-[9999] items-center justify-center hidden md:flex"
       animate={{
-        x: mousePosition.x - 16, // center the 32x32 icon
+        x: mousePosition.x - 16,
         y: mousePosition.y - 16,
-        scale: isHovering ? 1.5 : 1,
+        scale: isHovering ? 1.25 : 1,
         opacity: isVisible ? 1 : 0,
-        rotate: isHovering ? 45 : 0,
       }}
       transition={{
         type: "spring",
@@ -68,13 +67,30 @@ export default function CustomCursor() {
     >
       <div className="relative flex items-center justify-center">
         {/* Soft glow effect behind the flower */}
-        <div className="absolute inset-0 bg-pink-200 blur-md rounded-full opacity-50 scale-150"></div>
-        {/* Flower Icon */}
-        <Flower2 
-          size={32} 
-          className="text-pink-400 drop-shadow-sm relative z-10" 
-          strokeWidth={1.5}
-        />
+        <div className="absolute inset-0 bg-pink-200 blur-md rounded-full opacity-40 scale-150"></div>
+        
+        {/* Flower Icon with Hue Rotate Chameleon Effect */}
+        <motion.div
+          animate={{
+            filter: [
+              "hue-rotate(0deg)", 
+              "hue-rotate(60deg)", 
+              "hue-rotate(120deg)", 
+              "hue-rotate(0deg)"
+            ]
+          }}
+          transition={{
+            duration: isHovering ? 1.5 : 4, // Faster color change on hover
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        >
+          <Flower2 
+            size={32} 
+            className="text-pink-500 drop-shadow-md relative z-10" 
+            strokeWidth={1.5}
+          />
+        </motion.div>
       </div>
     </motion.div>
   );

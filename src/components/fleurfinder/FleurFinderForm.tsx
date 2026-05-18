@@ -105,6 +105,7 @@ const STEPS: StepData[] = [
       { label: "White Musk" },
       { label: "Matcha" },
       { label: "Vanilla" },
+      { label: "Floral" },
     ],
   },
   {
@@ -273,11 +274,10 @@ export default function FleurFinderForm() {
           </div>
         </div>
 
-        {/* ── Action Buttons ── */}
-        <div className="flex w-full gap-3 pt-4 border-t border-pink-200/50 relative z-10 flex-col sm:flex-row">
+        <div data-cursor="star" className="flex w-full gap-3 pt-4 border-t border-pink-200/50 relative z-10 flex-col sm:flex-row">
           <button
             onClick={handleBack}
-            className="flex-1 py-3 px-4 rounded-2xl border-2 border-pink-300 text-pink-700 font-semibold hover:bg-pink-50 transition-colors flex items-center justify-center gap-2"
+            className="flex-1 py-3 px-4 rounded-2xl border-2 border-pink-300 text-pink-700 font-semibold hover:bg-pink-50 transition-all duration-300 ease-in-out hover:scale-105 flex items-center justify-center gap-2"
           >
             <ArrowLeft className="w-4 h-4" /> Ubah Jawaban
           </button>
@@ -289,14 +289,14 @@ export default function FleurFinderForm() {
               const d = nextYear.toISOString().replace(/-|:|\\.\\d\\d\\d/g, "").slice(0, 8);
               window.open(`https://calendar.google.com/calendar/r/eventedit?text=Pesan+Bunga+di+FLEUR+PIPELINE&dates=${d}T090000Z/${d}T100000Z`, "_blank");
             }}
-            className="flex-1 py-3 px-4 rounded-2xl bg-white border border-pink-200 text-pink-600 font-semibold hover:bg-pink-50 transition-colors flex items-center justify-center gap-2 text-sm"
+            className="flex-1 py-3 px-4 rounded-2xl bg-white border border-pink-200 text-pink-600 font-semibold hover:bg-pink-50 transition-all duration-300 ease-in-out hover:scale-105 flex items-center justify-center gap-2 text-sm"
           >
             <CalendarPlus className="w-4 h-4" /> Ingatkan Saya
           </button>
 
           <button
             onClick={() => window.open(`https://wa.me/6282123880889?text=${waText}`, "_blank")}
-            className="flex-[1.5] py-3 px-4 rounded-2xl bg-[#25D366] text-white font-semibold hover:bg-[#128C7E] transition-colors flex items-center justify-center shadow-lg gap-2"
+            className="flex-[1.5] py-3 px-4 rounded-2xl bg-[#25D366] text-white font-semibold hover:bg-[#128C7E] transition-all duration-300 ease-in-out hover:scale-105 flex items-center justify-center shadow-lg gap-2"
           >
             <Sparkles className="w-4 h-4" /> Konsultasi via WhatsApp
           </button>

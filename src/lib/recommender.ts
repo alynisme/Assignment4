@@ -77,7 +77,7 @@ export const FLOWER_DATA: FlowerRecommendation[] = [
     meaning: "Simbol romansa abadi dan kemewahan.",
     whyThisFlower: "Pilihan paling Elegan/Mewah untuk momen yang benar-benar tak terlupakan.",
     tags: [
-      "Charcoal Black", "Midnight Blue", "Classic", "Jazz", "Woody", "100k-200k", "Elegan/Mewah",
+      "Charcoal Black", "Midnight Blue", "Classic", "Jazz", "Woody", "Floral", "100k-200k", "Elegan/Mewah",
       "Partner/GF/BF", "Orang Tua", "Anniversary",
     ],
     priceDisplay: "120k",
@@ -137,7 +137,7 @@ export const FLOWER_DATA: FlowerRecommendation[] = [
     meaning: "Keanggunan yang suci dan ketulusan hati.",
     whyThisFlower: "Sangat Elegan/Mewah, dibalut renda yang membuatnya tampil premium.",
     tags: [
-      "Terracotta", "Forest Green", "Jazz", "Classic", "Sandalwood", "Under 100k", "Elegan/Mewah",
+      "Terracotta", "Forest Green", "Jazz", "Classic", "Sandalwood", "Floral", "Under 100k", "Elegan/Mewah",
       "Partner/GF/BF", "First Date", "Orang Tua", "Anniversary", "Diri Sendiri", "HTS", "Istri/Suami",
     ],
     priceDisplay: "90k",
@@ -161,7 +161,7 @@ export const FLOWER_DATA: FlowerRecommendation[] = [
     meaning: "Pesona anggun, kemurnian, dan ketenangan jiwa.",
     whyThisFlower: "Sangat Simpel/Tulus, menunjukkan bahwa hal sederhana bisa sangat bermakna.",
     tags: [
-      "Ash Grey", "Sage Green", "Pop", "Indie", "Vanilla", "Under 100k", "Simpel/Tulus",
+      "Ash Grey", "Sage Green", "Pop", "Indie", "Vanilla", "Floral", "Under 100k", "Simpel/Tulus",
       "Partner/GF/BF", "Guru/Dosen", "HTS", "Pengen aja",
     ],
     priceDisplay: "25k",
@@ -173,7 +173,7 @@ export const FLOWER_DATA: FlowerRecommendation[] = [
     meaning: "Pengakuan cinta yang murni dan tulus.",
     whyThisFlower: "Sangat Simpel/Tulus, tanpa basa-basi untuk menyampaikan rasa sayangmu.",
     tags: [
-      "Sage Green", "Earthy Brown", "Indie", "Classic", "Matcha", "Under 100k", "Simpel/Tulus",
+      "Sage Green", "Earthy Brown", "Indie", "Classic", "Matcha", "Floral", "Under 100k", "Simpel/Tulus",
       "Partner/GF/BF", "Minta Maaf", "Cepat Sembuh", "Orang Tua",
     ],
     priceDisplay: "20k",
@@ -197,21 +197,31 @@ export function getFlowerRecommendation(
 ): FlowerRecommendation | null {
   const status = answers["status"] ?? "";
   const situation = answers["situation"] ?? "";
+  const budget = answers["budget"];
+
+  let availableFlowers = FLOWER_DATA;
+  if (budget) {
+    const filtered = FLOWER_DATA.filter((flower) => flower.tags.includes(budget));
+    if (filtered.length > 0) {
+      availableFlowers = filtered;
+    }
+  }
 
   // 1. Check priority map first (Status + Situation combo)
   const priorityKey = `${status}::${situation}`;
   const priorityId = PRIORITY_MAP[priorityKey];
   if (priorityId) {
-    const priority = FLOWER_DATA.find((f) => f.id === priorityId);
+    // Only use priority if it matches the budget constraint
+    const priority = availableFlowers.find((f) => f.id === priorityId);
     if (priority) return priority;
   }
 
-  // 2. Fallback: tag scoring across all answers
+  // 2. Fallback: tag scoring across all available answers
   const answerValues = Object.values(answers);
   let bestMatch: FlowerRecommendation | null = null;
   let highestScore = -1;
 
-  for (const flower of FLOWER_DATA) {
+  for (const flower of availableFlowers) {
     let score = 0;
     for (const val of answerValues) {
       if (flower.tags.includes(val)) score++;
@@ -222,5 +232,5 @@ export function getFlowerRecommendation(
     }
   }
 
-  return bestMatch ?? FLOWER_DATA[0];
+  return bestMatch ?? availableFlowers[0];
 }
